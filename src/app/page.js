@@ -1,3 +1,6 @@
+/**
+ * @auhor Chris Huang <asd978645312@gmail.com>
+ */
 import Link from "next/link";
 import Image from "next/image";
 import { Navbar,
@@ -19,6 +22,31 @@ import { Navbar,
          } from "flowbite-react";
 
 export default function Home() {
+
+  const items = [
+    {
+      cover:"/banner/banner-1.jpg",
+      name:"北港朝天宮",
+      desscription:"北港朝天宮，俗稱北港媽，當地人稱媽祖宮、媽祖廟，舊稱為天后宮。是一座位在臺灣雲林縣北港鎮光民里的媽祖廟，主祀天上聖母媽祖。 該廟由臨濟宗第34代樹璧和尚創立於康熙三十三年。",
+
+    },
+    {
+      cover:"/banner/banner-2.jpg",
+      name:"古坑綠色隧道",
+      desscription:"古坑綠色隧道位於斗六柴里橋，台三線往永光方向的綠色隧道，全長約有兩公里長，兩旁種植著約五十年歷史的芒果樹，綠蔭蔽天形成美麗的綠色隧道。綠色隧道亦提供腳踏車出租或傳統牛步車代步。",
+    },
+    {
+      cover:"/banner/banner-3.jpg",
+      name:"雅聞峇里海岸觀光工廠",
+      desscription:"位於斗六石榴班百年火車站附近，舒壓、藝術、美學、購物的雅聞峇里海岸園區，是國內最大的南洋風情景觀，擁有大規模的茅草屋群、棕櫚樹、迎賓瀑布、鏡面水池、3D美式塗鴉牆及明媚的海岸沙灘風景，彷彿置身異國天堂。",
+    },
+    {
+      cover:"/banner/banner-4.jpg",
+      name:"劍湖山世界主題樂園",
+      desscription:"劍湖山世界是臺灣主題遊樂園，通稱劍湖山，位於雲林縣古坑鄉永光村劍湖附近，綜合「休閒、遊樂、文化、科技」四大功能。全園佔地面積60多公頃，主要大型熱門活動常見為痛車，為嘉義耐斯企業旗下之大型遊樂園。和義大世界、六福村、九族文化村並稱臺灣遊樂園的「一三六九」。",
+    },
+  ];
+
   return (
     <>
       <div className="bg-neutral-600">
@@ -26,7 +54,7 @@ export default function Home() {
           <Navbar fluid className="bg-neutral-600">
             <NavbarBrand as={Link} href="/">
               <img src="https://www.yuntech.edu.tw/images/website_png/Group_640.png" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-              <span className="self-center whitespace-nowrap text-xl font-semibold ext-white">Flowbite React</span>
+              <span className="self-center whitespace-nowrap text-xl font-semibold ext-white">雲林旅遊網</span>
             </NavbarBrand>
             <NavbarToggle />
             <NavbarCollapse>
@@ -46,25 +74,27 @@ export default function Home() {
       </div>
       <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
         <Carousel slide={false}>
-          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." />
+          <img src="/banner/banner-1.jpg" alt="由 WU PEI HSUAN - 自己的作品, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=110297869" />
+          <img src="/banner/banner-2.jpg" alt="..." />
+          <img src="/banner/banner-3.jpg" alt="..." />
+          <img src="/banner/banner-4.jpg" alt="..." />
         </Carousel>
       </div>
 
       <div className="bg-white">
-       <div className="container mx-auto">
+       <div className="container mx-auto grid grid-cols-4 gap-4">
+          {items.map( item =>
+        
           <Card
             className="max-w-sm"
-            renderImage={() => <Image width={500} height={500} src="/images/blog/image-1.jpg" alt="image 1" />}
+            imgAlt={item.name}
+            imgSrc={item.cover}
            >
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
+              {item.name}
             </h5>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+            {item.desscription}
             </p>
             <Button>
               Read more
@@ -77,6 +107,7 @@ export default function Home() {
               </svg>
           </Button>
           </Card>
+          )}
         </div>
       </div>
       <Footer container>
