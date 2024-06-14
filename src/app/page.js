@@ -5,6 +5,7 @@
 
 import { useState,useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar, 
         NavbarBrand, 
         NavbarCollapse, 
@@ -26,28 +27,16 @@ import { Navbar,
 export default function Home() {
 
   const[ items, setItems ] = useState([]);
-  const tokenurl = '';
-  const apiUrl = '';
 
   useEffect(()=> {
-    const getToken = async() => {
-    const clientId = process.env.TDX_CLIENT_ID;
-    const clientSecret = process.env.TDX_CLIENT_SECERT;
+    async function fetchData(){
+      const response = await fetch('api/items');
+      const data = await response.json();
+      console.groupCollapsed(data);
+      setItems(data);
+    }
 
-    const tokenParams = new URLSearchParams();
-    tokenParams.append('grant_type','client_credentials');
-    tokenParams.append('client_id',clientId);
-    tokenParams.append('client_secret',clientSecret);
-
-    const tokenResponse= await fetch('',{
-    method: 'POST',
-    headers: {
-      'content-type':''
-    },
-    body: tokenParams.toString()
-  });
-};
-
+    fetchData();
 
   },[]);
 
@@ -162,7 +151,7 @@ export default function Home() {
 
        <Navbar fluid className="bg-cyan-800">
         <NavbarBrand as={Link} href="/">
-          <img src="https://www.yuntech.edu.tw/images/website_png/Group_640.png" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
+          <Image src="https://www.yuntech.edu.tw/images/website_png/Group_640.png" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">雲林旅遊網</span>
         </NavbarBrand>
         <NavbarToggle />
@@ -186,11 +175,11 @@ export default function Home() {
        </div> 
     <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
       <Carousel>
-        <img src="\banner\banner-1.jpg" alt="由 WU PEI HSUAN - 自己的作品, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=110297869" />
-        <img src="\banner\banner-2.jpg" alt="由 United States. Office of the Chief of Naval Operations - Civil Affairs Handbook Taiwan (Formosa) Taina Province (via HathiTrust, 公有領域, https://commons.wikimedia.org/w/index.php?curid=23751387" />
-        <img src="\banner\banner-3.jpg" alt="由 禮密臣（James Wheeler Davidson; 1872-1933） - Library at University of Calgary - Digital Collectionshttps://digitalcollections.ucalgary.ca/asset-management/2R3BF1SJZIAK3?WS=SearchResults, 公有領域, https://commons.wikimedia.org/w/index.php?curid=71073715" />
-        <img src="\banner\banner-4.jpg" alt="由 abc759kimo - 自己的作品, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=94599070" />
-        <img src="\banner\banner-5.jpg" alt="由 中文維基百科的Mnb - 本檔案是由Shizhao使用CommonsHelper，從zh.wikipedia轉移到維基共享資源。, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=9956033" />
+        <Image src="\banner\banner-1.jpg" alt="由 WU PEI HSUAN - 自己的作品, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=110297869" />
+        <Image src="\banner\banner-2.jpg" alt="由 United States. Office of the Chief of Naval Operations - Civil Affairs Handbook Taiwan (Formosa) Taina Province (via HathiTrust, 公有領域, https://commons.wikimedia.org/w/index.php?curid=23751387" />
+        <Image src="\banner\banner-3.jpg" alt="由 禮密臣（James Wheeler Davidson; 1872-1933） - Library at University of Calgary - Digital Collectionshttps://digitalcollections.ucalgary.ca/asset-management/2R3BF1SJZIAK3?WS=SearchResults, 公有領域, https://commons.wikimedia.org/w/index.php?curid=71073715" />
+        <Image src="\banner\banner-4.jpg" alt="由 abc759kimo - 自己的作品, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=94599070" />
+        <Image src="\banner\banner-5.jpg" alt="由 中文維基百科的Mnb - 本檔案是由Shizhao使用CommonsHelper，從zh.wikipedia轉移到維基共享資源。, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=9956033" />
       </Carousel>
     </div>
     <div className="bg-white py-16">
@@ -232,11 +221,11 @@ export default function Home() {
 
     </div>
 
-    <div class="container mx-auto">
-     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-black">
+    <div className="container mx-auto">
+     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-black">
       {
-        items.map( item =>
-          <CustomCard item={item}/>
+        items.map( (item, index) =>
+          <CustomCard item={item} key={index}/>
         )
       }
      </div>
